@@ -32,6 +32,7 @@ public class Utente implements UserDetails {
     private String cognome;
     private String urlAvatar;
     private String password;
+    @Enumerated(EnumType.STRING)
     private Role role;
     @CreationTimestamp
     private Date createdAt;
