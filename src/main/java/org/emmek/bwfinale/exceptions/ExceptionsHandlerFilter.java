@@ -1,4 +1,4 @@
-package org.emmek.bwfinale.controllers.exceptions;
+package org.emmek.bwfinale.exceptions;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

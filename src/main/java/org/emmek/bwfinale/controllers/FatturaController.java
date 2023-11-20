@@ -28,8 +28,20 @@ public class FatturaController {
         return fatturaService.getFattura(page, size, orderBy);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{idNumero}")
     public Fattura findByIdNumero(@PathVariable long idNumero) {
         return fatturaService.findByIdNumero(idNumero);
+    }
+
+    @PutMapping("/{idNumero}")
+    public Fattura findAndUpdateByIdNumero(@PathVariable long idNumero, @RequestBody Fattura body) {
+        return fatturaService.findAndUpdateByIdNumero(idNumero, body);
+    }
+
+    @DeleteMapping("/{idNumero}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @ResponseStatus(HttpStatus.NO_CONTENT) // <-- 204 NO CONTENT
+    public void findAndDeleteByIdNumero(@PathVariable long idNumero) {
+        fatturaService.findAndDeleteByIdNumero(idNumero);
     }
 }

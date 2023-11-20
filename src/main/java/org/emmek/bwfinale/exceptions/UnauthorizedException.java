@@ -1,4 +1,4 @@
-package org.emmek.bwfinale.controllers.exceptions;
+package org.emmek.bwfinale.exceptions;
 
 public class UnauthorizedException extends RuntimeException {
     public UnauthorizedException(String message) {

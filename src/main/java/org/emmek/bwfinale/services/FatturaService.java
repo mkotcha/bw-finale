@@ -1,6 +1,6 @@
 package org.emmek.bwfinale.services;
 
-import org.emmek.bwfinale.controllers.exceptions.NotFoundException;
+import org.emmek.bwfinale.exceptions.NotFoundException;
 import org.emmek.bwfinale.entities.Fattura;
 import org.emmek.bwfinale.payloads.FatturaDTO;
 import org.emmek.bwfinale.repositories.FatturaRepository;
@@ -32,5 +32,19 @@ public class FatturaService {
 
         return fatturaRepository.findById(idNumero).orElseThrow(() -> new NotFoundException(idNumero));
 
+    }
+    public Fattura findAndUpdateByIdNumero(long idNumero, Fattura body) {
+        Fattura foundF = this.findByIdNumero(idNumero);
+
+        foundF.setId_numero(idNumero);
+        foundF.setImporto(body.getImporto());
+        foundF.setData(body.getData());
+
+        return foundF;
+
+    }
+    public void findAndDeleteByIdNumero(long id) {
+        Fattura foundF = this.findByIdNumero(id);
+        fatturaRepository.delete(foundF);
     }
 }

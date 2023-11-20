@@ -1,4 +1,4 @@
-package org.emmek.bwfinale.controllers.exceptions;
+package org.emmek.bwfinale.exceptions;
 
 public class NotFoundException extends RuntimeException {
     public NotFoundException(long idNumero) {
