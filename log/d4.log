@@ -265,3 +265,71 @@ Using generated security password: b4a1b289-8a97-4563-bdd1-5b900de194c9
 This generated password is for development use only. Your security configuration must be updated before running your application in production.
 
 2023-11-20T13:09:41.066+01:00  INFO 42872 --- [restartedMain] org.emmek.bwfinale.ProjectApplication    : Started ProjectApplication in 6.971 seconds (process running for 7.842)
+2023-11-20T14:21:36.698+01:00  INFO 55320 --- [restartedMain] org.emmek.bwfinale.ProjectApplication    : Starting ProjectApplication using Java 17.0.8.1 with PID 55320 (C:\Users\Rekabil\Desktop\Epicode BackEnd\bw-finale\target\classes started by Rekabil in C:\Users\Rekabil\Desktop\Epicode BackEnd\bw-finale)
+2023-11-20T14:21:36.700+01:00 DEBUG 55320 --- [restartedMain] org.emmek.bwfinale.ProjectApplication    : Running with Spring Boot v3.1.5, Spring v6.0.13
+2023-11-20T14:21:36.702+01:00  INFO 55320 --- [restartedMain] org.emmek.bwfinale.ProjectApplication    : The following 1 profile is active: "dev"
+2023-11-20T14:21:40.221+01:00  INFO 45500 --- [restartedMain] org.emmek.bwfinale.ProjectApplication    : Starting ProjectApplication using Java 17.0.8.1 with PID 45500 (C:\Users\Rekabil\Desktop\Epicode BackEnd\bw-finale\target\classes started by Rekabil in C:\Users\Rekabil\Desktop\Epicode BackEnd\bw-finale)
+2023-11-20T14:21:40.225+01:00 DEBUG 45500 --- [restartedMain] org.emmek.bwfinale.ProjectApplication    : Running with Spring Boot v3.1.5, Spring v6.0.13
+2023-11-20T14:21:40.226+01:00  INFO 45500 --- [restartedMain] org.emmek.bwfinale.ProjectApplication    : The following 1 profile is active: "dev"
+2023-11-20T14:21:45.730+01:00  WARN 55320 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-20T14:21:46.533+01:00  WARN 55320 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: bc3cd2c5-3020-45fb-8fff-ae7511efd597
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-11-20T14:21:46.870+01:00  INFO 55320 --- [restartedMain] org.emmek.bwfinale.ProjectApplication    : Started ProjectApplication in 10.846 seconds (process running for 11.739)
+2023-11-20T14:21:47.901+01:00  WARN 45500 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-20T14:21:48.658+01:00  WARN 45500 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 85ebd2e5-96ee-48a4-8461-3690e9e6efd5
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-11-20T14:21:48.909+01:00  WARN 45500 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2023-11-20T14:21:48.991+01:00  INFO 45500 --- [restartedMain] org.emmek.bwfinale.ProjectApplication    : Started ProjectApplication in 9.635 seconds (process running for 10.872)
+2023-11-20T14:26:09.164+01:00  INFO 56828 --- [restartedMain] org.emmek.bwfinale.ProjectApplication    : Starting ProjectApplication using Java 17.0.8.1 with PID 56828 (C:\Users\Rekabil\Desktop\Epicode BackEnd\bw-finale\target\classes started by Rekabil in C:\Users\Rekabil\Desktop\Epicode BackEnd\bw-finale)
+2023-11-20T14:26:09.167+01:00 DEBUG 56828 --- [restartedMain] org.emmek.bwfinale.ProjectApplication    : Running with Spring Boot v3.1.5, Spring v6.0.13
+2023-11-20T14:26:09.168+01:00  INFO 56828 --- [restartedMain] org.emmek.bwfinale.ProjectApplication    : The following 1 profile is active: "dev"
+2023-11-20T14:26:14.918+01:00  WARN 56828 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-20T14:26:15.460+01:00  WARN 56828 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 915e8abf-6bd3-4f8d-b1af-adb6e1d7597a
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-11-20T14:26:15.773+01:00  INFO 56828 --- [restartedMain] org.emmek.bwfinale.ProjectApplication    : Started ProjectApplication in 7.622 seconds (process running for 8.556)
+2023-11-20T14:48:48.297+01:00  INFO 34236 --- [restartedMain] org.emmek.bwfinale.ProjectApplication    : Starting ProjectApplication using Java 17.0.8.1 with PID 34236 (C:\Users\Rekabil\Desktop\Epicode BackEnd\bw-finale\target\classes started by Rekabil in C:\Users\Rekabil\Desktop\Epicode BackEnd\bw-finale)
+2023-11-20T14:48:48.300+01:00 DEBUG 34236 --- [restartedMain] org.emmek.bwfinale.ProjectApplication    : Running with Spring Boot v3.1.5, Spring v6.0.13
+2023-11-20T14:48:48.301+01:00  INFO 34236 --- [restartedMain] org.emmek.bwfinale.ProjectApplication    : The following 1 profile is active: "dev"
+2023-11-20T14:48:50.977+01:00  INFO 48372 --- [restartedMain] org.emmek.bwfinale.ProjectApplication    : Starting ProjectApplication using Java 17.0.8.1 with PID 48372 (C:\Users\Rekabil\Desktop\Epicode BackEnd\bw-finale\target\classes started by Rekabil in C:\Users\Rekabil\Desktop\Epicode BackEnd\bw-finale)
+2023-11-20T14:48:50.980+01:00 DEBUG 48372 --- [restartedMain] org.emmek.bwfinale.ProjectApplication    : Running with Spring Boot v3.1.5, Spring v6.0.13
+2023-11-20T14:48:50.982+01:00  INFO 48372 --- [restartedMain] org.emmek.bwfinale.ProjectApplication    : The following 1 profile is active: "dev"
+2023-11-20T14:48:58.829+01:00  WARN 34236 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-20T14:48:59.729+01:00  WARN 34236 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 601d4694-4f6f-413a-9819-69698d68b6e9
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-11-20T14:49:00.156+01:00  INFO 34236 --- [restartedMain] org.emmek.bwfinale.ProjectApplication    : Started ProjectApplication in 12.537 seconds (process running for 14.309)
+2023-11-20T14:49:01.081+01:00  WARN 48372 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-20T14:49:01.573+01:00  WARN 48372 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: f9be366b-8ca7-4b5e-9aef-58b00bbd0d81
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-11-20T14:49:01.790+01:00  WARN 48372 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2023-11-20T14:49:01.814+01:00  WARN 48372 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2023-11-20T14:49:17.896+01:00  INFO 18600 --- [restartedMain] org.emmek.bwfinale.ProjectApplication    : Starting ProjectApplication using Java 17.0.8.1 with PID 18600 (C:\Users\Rekabil\Desktop\Epicode BackEnd\bw-finale\target\classes started by Rekabil in C:\Users\Rekabil\Desktop\Epicode BackEnd\bw-finale)
+2023-11-20T14:49:17.899+01:00 DEBUG 18600 --- [restartedMain] org.emmek.bwfinale.ProjectApplication    : Running with Spring Boot v3.1.5, Spring v6.0.13
+2023-11-20T14:49:17.900+01:00  INFO 18600 --- [restartedMain] org.emmek.bwfinale.ProjectApplication    : The following 1 profile is active: "dev"
+2023-11-20T14:49:23.027+01:00  WARN 18600 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-20T14:49:23.484+01:00  WARN 18600 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: dffe0a09-1caa-4e58-a59c-4688f45ecbb0
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-11-20T14:49:23.768+01:00  INFO 18600 --- [restartedMain] org.emmek.bwfinale.ProjectApplication    : Started ProjectApplication in 6.549 seconds (process running for 7.276)

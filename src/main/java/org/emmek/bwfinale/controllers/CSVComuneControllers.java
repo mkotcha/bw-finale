@@ -1,27 +1,26 @@
 package org.emmek.bwfinale.controllers;
 
+import org.emmek.bwfinale.entities.Comune;
 import org.emmek.bwfinale.entities.Provincia;
 import org.emmek.bwfinale.exceptions.ResponseMessage;
 import org.emmek.bwfinale.helpers.CVSHelperProvincia;
-import org.emmek.bwfinale.services.CSVProvinciaService;
+import org.emmek.bwfinale.services.CSVComuneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/provinci")
-public class CSVProvinciaControllers {
+@RequestMapping("/comuni")
+public class CSVComuneControllers {
     @Autowired
-    CSVProvinciaService service;
+    CSVComuneService service;
 
     @PostMapping("/upload")
-    public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file")MultipartFile file) {
+    public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
         String message = "";
 
         if (CVSHelperProvincia.hasCSVFormat(file)) {
@@ -40,13 +39,13 @@ public class CSVProvinciaControllers {
     }
 
     @GetMapping("")
-public ResponseEntity<List<Provincia>> getProvinci() {
+    public ResponseEntity<List<Comune>> getComuni() {
         try {
-            List<Provincia> provinciaList = service.getAllProvincia();
-            if (provinciaList.isEmpty()) {
+            List<Comune> comuneList = service.getAllComune();
+            if (comuneList.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
-            return new ResponseEntity<>(provinciaList,HttpStatus.OK);
+            return new ResponseEntity<>(comuneList,HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

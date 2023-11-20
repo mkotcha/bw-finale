@@ -1,6 +1,7 @@
 package org.emmek.bwfinale.services;
 
 import org.emmek.bwfinale.entities.Provincia;
+import org.emmek.bwfinale.exceptions.NotFoundException;
 import org.emmek.bwfinale.helpers.CVSHelperProvincia;
 import org.emmek.bwfinale.repository.ProvinciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CSVProvinciaService {
@@ -27,4 +29,8 @@ public class CSVProvinciaService {
     public List<Provincia> getAllProvincia() {
         return repository.findAll();
     }
+
+public Provincia findByName(String name) {
+       return repository.findByProvincia(name).orElseThrow(()-> new NotFoundException("Provincia con nome: "+name+" non Trovato!"));
+}
 }
