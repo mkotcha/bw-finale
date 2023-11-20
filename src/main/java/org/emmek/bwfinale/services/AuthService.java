@@ -13,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 
 @Service
 public class AuthService {
@@ -43,7 +45,9 @@ public class AuthService {
         newUtente.setEmail(body.email());
         newUtente.setPassword(bcrypt.encode(body.password()));
         newUtente.setUsername(body.username());
-        newUtente.setRole(Role.USER);
+       newUtente.setRoles(Arrays.asList(Role.USER));
+//       newUtente.setRoles(Arrays.asList(Role.USER,Role.ADMIN));// dare piu di un ruolo
+
         return utenteRepository.save(newUtente);
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Getter
@@ -32,15 +33,19 @@ public class Utente implements UserDetails {
     private String cognome;
     private String urlAvatar;
     private String password;
+    @ElementCollection(targetClass = Role.class)
+    @CollectionTable(name = "utente_roles",joinColumns = @JoinColumn(name = "utente_id"))
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private List<Role> roles;
     @CreationTimestamp
     private Date createdAt;
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(this.role.name()));
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role.name()))
+                .collect(Collectors.toList());
     }
 
 
@@ -69,4 +74,6 @@ public class Utente implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }
