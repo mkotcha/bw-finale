@@ -1,6 +1,6 @@
 package org.emmek.bwfinale.services;
 
-import org.emmek.bwfinale.Enum.Role;
+import org.emmek.bwfinale.entities.Role;
 import org.emmek.bwfinale.entities.Utente;
 import org.emmek.bwfinale.exceptions.BadRequestException;
 import org.emmek.bwfinale.exceptions.UnauthorizedException;
@@ -14,7 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class AuthService {
@@ -45,8 +46,10 @@ public class AuthService {
         newUtente.setEmail(body.email());
         newUtente.setPassword(bcrypt.encode(body.password()));
         newUtente.setUsername(body.username());
-       newUtente.setRoles(Arrays.asList(Role.USER));
-//       newUtente.setRoles(Arrays.asList(Role.USER,Role.ADMIN));// dare piu di un ruolo
+        Set<Role>ruoloUtente = new HashSet<>();
+//        ruoloUtente.add()
+
+
 
         return utenteRepository.save(newUtente);
     }

@@ -5,22 +5,21 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.emmek.bwfinale.Enum.Role;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
 @Getter
 @Setter
 @Entity
-@Table(name = "utenti")
+@Table(name = "users")
 @JsonIgnoreProperties({"password", "authorities", "enabled", "credentialsNonExpired", "accountNonExpired", "accountNonLocked"})
 public class Utente implements UserDetails {
     @Id
@@ -33,10 +32,14 @@ public class Utente implements UserDetails {
     private String cognome;
     private String urlAvatar;
     private String password;
-    @ElementCollection(targetClass = Role.class)
-    @CollectionTable(name = "utente_roles",joinColumns = @JoinColumn(name = "utente_id"))
-    @Enumerated(EnumType.STRING)
-    private List<Role> roles;
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
+
     @CreationTimestamp
     private Date createdAt;
 
@@ -44,7 +47,7 @@ public class Utente implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.name()))
+                .map(role -> new SimpleGrantedAuthority(role.getRole()))
                 .collect(Collectors.toList());
     }
 
