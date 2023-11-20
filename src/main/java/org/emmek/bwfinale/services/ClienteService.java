@@ -4,13 +4,12 @@ import org.emmek.bwfinale.entities.Cliente;
 import org.emmek.bwfinale.payloads.ClientePostDTO;
 import org.emmek.bwfinale.repositories.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ClienteService {
@@ -31,10 +30,6 @@ public class ClienteService {
         return clienteRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente non trovato"));
     }
 
-    public Page<Cliente> findAll(int page, int size, String sort) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
-        return clienteRepository.findAll(pageable);
-    }
 
     public Page<Cliente> findByFatturatoAnnualeGreaterThan(double fatturatoAnnuale, int page, int size, String sort) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
@@ -64,6 +59,39 @@ public class ClienteService {
     public Page<Cliente> getClienti(double fatturatoGreater, double fatturatoLess, String dataInserimento, String dataUltimoContatto, String ragioneSociale, int page, int size, String sort) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
 
-        return null;
+        List<Cliente> clienti = clienteRepository.findAll();
+
+        if (fatturatoGreater != 0) {
+            clienti = clienti.stream()
+                    .filter(c -> c.getFatturatoAnnuale() > fatturatoGreater)
+                    .collect(Collectors.toList());
+        }
+
+        if (fatturatoLess != 0) {
+            clienti = clienti.stream()
+                    .filter(c -> c.getFatturatoAnnuale() < fatturatoLess)
+                    .collect(Collectors.toList());
+        }
+
+        if (!dataInserimento.isEmpty()) {
+            clienti = clienti.stream()
+                    .filter(c -> c.getDataInserimento().equals(LocalDate.parse(dataInserimento)))
+                    .collect(Collectors.toList());
+        }
+
+        if (!dataUltimoContatto.isEmpty()) {
+            clienti = clienti.stream()
+                    .filter(c -> c.getDataUltimoContatto().equals(LocalDate.parse(dataUltimoContatto)))
+                    .collect(Collectors.toList());
+        }
+
+        if (!ragioneSociale.isEmpty()) {
+            clienti = clienti.stream()
+                    .filter(c -> c.getRagioneSociale().contains(ragioneSociale))
+                    .collect(Collectors.toList());
+        }
+        
+        return new PageImpl<>(clienti, pageable, clienti.size());
+
     }
 }
