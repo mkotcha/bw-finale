@@ -38,7 +38,10 @@ public class ProvinciaService {
                     flag = true;
                 }
             }
-
+            Provincia newProvincia = new Provincia("VCS", "Verbano-Cusio-Ossola", "Piemonte");
+            provinciaRepository.save(newProvincia);
+            newProvincia = new Provincia("VCS", "Sud-Sardegna", "Sardegna");
+            provinciaRepository.save(newProvincia);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

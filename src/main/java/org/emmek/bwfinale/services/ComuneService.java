@@ -35,23 +35,15 @@ public class ComuneService {
             boolean flag = false;
             for (CSVRecord record : records) {
                 if (flag) {
-                    Provincia newProvincia = new Provincia("VCS", "Verbano-Cusio-Ossola", "Piemonte");
-                    newProvincia = new Provincia("VCS", "Sud-Sardegna", "Sardegna");
+
                     String provinciaStr = record.get(3);
 
                     switch (provinciaStr) {
-//                        case "Verbano-Cusio-Ossola" -> {
-//
-//                            provinciaRepository.save(newProvincia);
-//                        }
                         case "Valle d'Aosta/Vallée d'Aoste" -> provinciaStr = "Aosta";
                         case "La Spezia" -> provinciaStr = "La-Spezia";
                         case "Reggio nell'Emilia" -> provinciaStr = "Reggio-Emilia";
                         case "Reggio Calabria" -> provinciaStr = "Reggio-Calabria";
-//                        case "Sud Sardegna" ->
-////                        Provincia newProvincia = new Provincia("VCS", "Sud-Sardegna", "Sardegna");
-////                        provinciaRepository.save(newProvincia);
-//                                provinciaStr = "Sud-Sardegna";
+                        case "Sud Sardegna" -> provinciaStr = "Sud-Sardegna";
                         default -> {
                             String[] strPart = provinciaStr.split("[ ;/-]");
                             if (strPart[0].length() > 3) provinciaStr = strPart[0];
