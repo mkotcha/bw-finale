@@ -3,6 +3,7 @@ package org.emmek.bwfinale.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.emmek.bwfinale.Enum.StatoFattura;
 
 import java.time.LocalDate;
 
@@ -17,5 +18,12 @@ public class Fattura {
 
     private double importo;
     private LocalDate data;
+    @Enumerated(EnumType.STRING)
+    private StatoFattura stato;
+    private int anno;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 
 }

@@ -1,4 +1,4 @@
-package org.emmek.bwfinale.entities;
+package org.emmek.bwfinale.Enum;
 
 public enum StatoFattura {
     BOZZA,
