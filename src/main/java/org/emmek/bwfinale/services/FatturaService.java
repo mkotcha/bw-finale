@@ -19,28 +19,27 @@ public class FatturaService {
     @Autowired
     FatturaRepository fatturaRepository;
 
-    public Fattura save(FatturaDTO body) {
+    public Fattura save(FatturaDTO body, Cliente cliente) {
         Fattura newFattura = new Fattura();
 
         newFattura.setImporto(body.importo());
-        newFattura.setData(body.data());
+        newFattura.setData(LocalDate.now().minusYears(1));
+        newFattura.setCliente(cliente);
+        newFattura.setAnno(LocalDate.now().getYear() - 1);
+        newFattura.setStato(StatoFattura.PAGATA);
 
         return fatturaRepository.save(newFattura);
     }
 
-    public Page<Fattura> getFattura(int page, int size, String orderBy) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
-        return fatturaRepository.findAll(pageable);
-    }
 
-    public Fattura findByIdNumero(long idNumero) {
+    public Fattura findById(long id) {
 
-        return fatturaRepository.findById(idNumero).orElseThrow(() -> new NotFoundException(idNumero));
+        return fatturaRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
 
     }
 
     public Fattura findAndUpdateByIdNumero(long idNumero, Fattura body) {
-        Fattura foundF = this.findByIdNumero(idNumero);
+        Fattura foundF = this.findById(idNumero);
 
         foundF.setId_numero(idNumero);
         foundF.setImporto(body.getImporto());
@@ -50,57 +49,52 @@ public class FatturaService {
 
     }
 
-//    public Page<Fattura> getFattureByFiltro(Cliente cliente, StatoFattura stato, LocalDate date, int anno, double importoMin, double importoMax, int page, int size, String orderBy) {
-//        Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
-//        return fatturaRepository.findByClienteAndStatoAndDataAndAnnoAndImporto(cliente, stato, date, anno, importoMin, importoMax, pageable);
-//    }
 
-    public Page<Fattura> getFatture(double importoGreater, double importoLess, LocalDate data, int anno, long clienteId, StatoFattura statoFattura, int page, int size, String orderBy) {
+    public Page<Fattura> findByAnno(int anno, int page, int size, String sort) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
+        return fatturaRepository.findByAnno(anno, pageable);
+    }
+
+    public Page<Fattura> getFatture(double importoGreater, double importoLess, String data, StatoFattura statoFattura, int anno, int page, int size, String orderBy) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
         List<Fattura> fatture = fatturaRepository.findAll();
         if (importoGreater != 0) {
             fatture = fatture.stream()
-                    .filter(f -> f.getImporto() > importoGreater)
+                    .filter(f -> f.getImporto() < importoGreater)
                     .collect(Collectors.toList());
         }
 
         if (importoLess != 0) {
             fatture = fatture.stream()
-                    .filter(f -> f.getImporto() < importoLess)
+                    .filter(f -> f.getImporto() > importoLess)
                     .collect(Collectors.toList());
         }
 
-        if (data != null) {
+        if (!data.isEmpty()) {
             fatture = fatture.stream()
-                    .filter(f -> f.getData().equals(data))
+                    .filter(f -> f.getData().equals(LocalDate.parse(data)))
                     .collect(Collectors.toList());
         }
 
-        if (anno != 0) {
-            fatture = fatture.stream()
-                    .filter(f -> f.getAnno() == anno)
-                    .collect(Collectors.toList());
-        }
-
-        if (clienteId != 0) {
-            Cliente cliente = new Cliente();
-            fatture = fatture.stream()
-                    .filter(f -> f.getCliente().equals(cliente))
-                    .collect(Collectors.toList());
-        }
 
         if (statoFattura != null) {
             fatture = fatture.stream()
                     .filter(f -> f.getStato().equals(statoFattura))
                     .collect(Collectors.toList());
         }
+        if (anno != 0) {
+            fatture = fatture.stream()
+                    .filter(f -> f.getAnno() == anno)
+                    .collect(Collectors.toList());
+        }
+
 
         return new PageImpl<>(fatture, pageable, fatture.size());
     }
 
 
     public void findAndDeleteByIdNumero(long id) {
-        Fattura foundF = this.findByIdNumero(id);
+        Fattura foundF = this.findById(id);
         fatturaRepository.delete(foundF);
     }
 }
