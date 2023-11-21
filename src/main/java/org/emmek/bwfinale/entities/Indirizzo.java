@@ -1,28 +1,33 @@
 package org.emmek.bwfinale.entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @Setter
 @ToString
 @Entity
 @Table(name = "indirizzi")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Indirizzo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     private String via;
-    private int civico;
-    private String locatital;
+    private String civico;
+    private String provincia;
     private int cap;
-
     @ManyToOne
     @JoinColumn(name = "comune_id")
     private Comune comune;
 
+    public Indirizzo(String via, String civico, String provincia, int cap, Comune comune) {
+        this.via = via;
+        this.civico = civico;
+        this.provincia = provincia;
+        this.cap = cap;
+        this.comune = comune;
+    }
 
 }

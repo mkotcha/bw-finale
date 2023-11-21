@@ -5,8 +5,8 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.emmek.bwfinale.entities.Comune;
 import org.emmek.bwfinale.entities.Provincia;
+import org.emmek.bwfinale.repositories.ComuneRepository;
 import org.emmek.bwfinale.repositories.ProvinciaRepository;
-import org.emmek.bwfinale.repository.ComuneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,7 +56,7 @@ public class ComuneService {
                     Provincia provincia = provinciaService.findByProvinciaContaining(provinciaStr);
 
                     Comune comune = new Comune();
-                    comune.setNomeComune(record.get(2));
+                    comune.setNome(record.get(2));
                     comune.setProvincia(provincia);
                     comuneRepository.save(comune);
                 } else {
@@ -71,6 +71,10 @@ public class ComuneService {
 
     public List<Comune> getAllComune() {
         return comuneRepository.findAll();
+    }
+
+    public Comune findByNomeAndProvinciaSigla(String nome, String provincia) {
+        return comuneRepository.findByNomeAndProvinciaSigla(nome, provincia).orElseThrow(() -> new RuntimeException("Comune " + nome + " " + " provincia di  " + provincia + " non trovato"));
     }
 
 }

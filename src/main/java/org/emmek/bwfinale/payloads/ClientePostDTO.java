@@ -41,9 +41,31 @@ public record ClientePostDTO(
         String cognomeContatto,
 
         @NotEmpty(message = "telefono contatto non puo essere vuoto")
-        String telefonoContatto
+        String telefonoContatto,
 
-//        @NotNull(message = "indirizzo 1 non puo essere null")
+        @NotNull(message = "La via pricipale non puo essere nnull")
+        String via1,
+        @NotNull(message = "il civico pricipale non puo essere null")
+        String civico1,
 
+        @NotNull(message = "la provincia principale non puo essere null")
+        @Size(min = 2, max = 3, message = "Provincia deve essere tra 2 e 3 caratteri")
+        String provincia1,
+
+        @NotNull()
+        String comune1,
+
+        int cap1,
+
+        String via2,
+
+        String civico2,
+
+        @Size(min = 2, max = 3, message = "Provincia deve essere tra 2 e 3 caratteri")
+        String provincia2,
+
+        String comune2,
+
+        int cap2
 ) {
 }
