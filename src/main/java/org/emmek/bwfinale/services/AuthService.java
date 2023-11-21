@@ -6,6 +6,7 @@ import org.emmek.bwfinale.exceptions.BadRequestException;
 import org.emmek.bwfinale.exceptions.UnauthorizedException;
 import org.emmek.bwfinale.payload.entity.NewUtenteDTO;
 import org.emmek.bwfinale.payload.entity.UtenteLoginDTO;
+import org.emmek.bwfinale.repositories.RoleRepository;
 import org.emmek.bwfinale.repositories.UtenteRepository;
 import org.emmek.bwfinale.security.JWTTools;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class AuthService {
@@ -27,6 +26,8 @@ public class AuthService {
     private UtenteRepository utenteRepository;
     @Autowired
     private PasswordEncoder bcrypt;
+    @Autowired
+    private RoleRepository roleRepository;
 
     public String autheticateUtente(UtenteLoginDTO body){
         Utente utente= utenteService.findByEmail(body.email());
@@ -46,11 +47,10 @@ public class AuthService {
         newUtente.setEmail(body.email());
         newUtente.setPassword(bcrypt.encode(body.password()));
         newUtente.setUsername(body.username());
-        Set<Role>ruoloUtente = new HashSet<>();
-//        ruoloUtente.add()
-
-
+        Role userRole = roleRepository.findByRole("USER").orElse(null);
+        newUtente.setRoles(new HashSet<>(Collections.singletonList(userRole)));
 
         return utenteRepository.save(newUtente);
     }
-}
+    }
+

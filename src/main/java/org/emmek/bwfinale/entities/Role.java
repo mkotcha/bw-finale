@@ -1,6 +1,7 @@
 package org.emmek.bwfinale.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,5 +25,6 @@ public class Role {
             name = "user_role",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @JsonIgnore
     private Set<Utente> utenti = new HashSet<>();
 }
