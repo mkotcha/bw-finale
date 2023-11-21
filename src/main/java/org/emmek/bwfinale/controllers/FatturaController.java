@@ -1,7 +1,9 @@
 package org.emmek.bwfinale.controllers;
 
+import org.emmek.bwfinale.Enum.StatoFattura;
 import org.emmek.bwfinale.entities.Fattura;
 import org.emmek.bwfinale.payloads.FatturaDTO;
+import org.emmek.bwfinale.services.ClienteService;
 import org.emmek.bwfinale.services.FatturaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,23 +11,34 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
 @RequestMapping("/fatture")
 public class FatturaController {
     @Autowired
     private FatturaService fatturaService;
+    @Autowired
+    private ClienteService clienteService;
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public Fattura saveFattura(@RequestBody FatturaDTO body){
+    public Fattura saveFattura(@RequestBody FatturaDTO body) {
         return fatturaService.save(body);
     }
 
     @GetMapping("")
-    public Page<Fattura> getFattura(@RequestParam(defaultValue = "0") int page,
-                                  @RequestParam(defaultValue = "10") int size,
-                                  @RequestParam(defaultValue = "id") String orderBy) {
-        return fatturaService.getFattura(page, size, orderBy);
+    public Page<Fattura> getFatturaByFiltro(
+            @RequestParam long clienteId,
+            @RequestParam StatoFattura statoFattura,
+            @RequestParam LocalDate data,
+            @RequestParam int anno,
+            @RequestParam(defaultValue = "0") double importoMin,
+            @RequestParam(defaultValue = "0") double importoMax,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String orderBy) {
+        return fatturaService.getFatture(importoMax, importoMin, data, anno, clienteId, statoFattura, page, size, orderBy);
     }
 
     @GetMapping("/{idNumero}")
