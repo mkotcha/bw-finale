@@ -1,12 +1,17 @@
 package org.emmek.bwfinale.services;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.emmek.bwfinale.entities.Cliente;
+import org.emmek.bwfinale.exceptions.NotFoundException;
 import org.emmek.bwfinale.payloads.ClientePostDTO;
 import org.emmek.bwfinale.repositories.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +21,9 @@ public class ClienteService {
 
     @Autowired
     ClienteRepository clienteRepository;
+
+    @Autowired
+    private Cloudinary cloudinary;
 
     public Cliente save(ClientePostDTO body) {
         Cliente cliente = new Cliente();
@@ -99,5 +107,33 @@ public class ClienteService {
 
         return new PageImpl<>(clienti, pageable, clienti.size());
 
+    }
+
+    public Cliente updateById(long id, ClientePostDTO body) {
+        Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente non trovato"));
+        cliente.setRagioneSociale(body.ragioneSociale());
+        cliente.setPartitaIva(body.partitaIva());
+        cliente.setFatturatoAnnuale(body.fatturatoAnnuale());
+        cliente.setDataUltimoContatto(LocalDate.now());
+        cliente.setEmailContatto(body.emailContatto());
+        cliente.setNomeContatto(body.nomeContatto());
+        cliente.setCognomeContatto(body.cognomeContatto());
+        cliente.setTelefonoContatto(body.telefonoContatto());
+        cliente.setPec(body.pec());
+        cliente.setTelefono(body.telefono());
+        return clienteRepository.save(cliente);
+    }
+
+    public void deleteById(long id) {
+        Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+        clienteRepository.delete(cliente);
+    }
+
+    public String uploadPicture(long id, MultipartFile body) throws IOException {
+        Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+        String url = (String) cloudinary.uploader().upload(body.getBytes(), ObjectUtils.emptyMap()).get("url");
+        cliente.setLogoAziendale(url);
+        clienteRepository.save(cliente);
+        return url;
     }
 }

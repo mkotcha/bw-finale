@@ -1,4 +1,4 @@
-package org.emmek.bwfinale.controller;
+package org.emmek.bwfinale.controllers;
 
 import org.emmek.bwfinale.entities.Cliente;
 import org.emmek.bwfinale.exceptions.BadRequestException;
@@ -10,6 +10,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/clienti")
@@ -39,4 +42,27 @@ public class ClienteController {
             return clienteService.save(body);
         }
     }
+
+    @PutMapping("{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public Cliente updateClienteById(@PathVariable long id, @RequestBody @Validated ClientePostDTO body, BindingResult validation) {
+        if (validation.hasErrors()) {
+            throw new BadRequestException(validation.getAllErrors());
+        } else {
+            return clienteService.updateById(id, body);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public void deleteEventById(@PathVariable long id) {
+        clienteService.deleteById(id);
+    }
+
+    @PostMapping("/{id}/logo")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String uploadExample(@PathVariable long id, @RequestParam("logo") MultipartFile body) throws IOException {
+        return clienteService.uploadPicture(id, body);
+    }
+
 }
