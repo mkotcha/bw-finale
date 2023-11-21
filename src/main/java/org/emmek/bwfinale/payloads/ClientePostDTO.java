@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import org.emmek.bwfinale.entities.Indirizzo;
 
 public record ClientePostDTO(
 
@@ -20,12 +19,7 @@ public record ClientePostDTO(
         @Pattern(regexp = "^[\\w.-]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "Email non valida")
         String email,
 
-        @NotNull(message = "Data inserimento non puo essere null")
-        @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "Data inserimento non valida (yyyy-mm-dd)")
-        String dataInserimento,
-
         @NotNull(message = "Fatturato annuale non puo essere null")
-        @NotEmpty(message = "Fatturato annuale non puo essere vuoto")
         double fatturatoAnnuale,
 
         @NotNull(message = "pec non puo essere null")
@@ -47,12 +41,9 @@ public record ClientePostDTO(
         String cognomeContatto,
 
         @NotEmpty(message = "telefono contatto non puo essere vuoto")
-        String telefonoContatto,
+        String telefonoContatto
 
-        @NotNull(message = "indirizzo 1 non puo essere null")
-        Indirizzo indirizzo1,
-
-        Indirizzo indirizzo2
+//        @NotNull(message = "indirizzo 1 non puo essere null")
 
 ) {
 }

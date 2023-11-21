@@ -22,7 +22,13 @@ public class ClienteService {
         cliente.setRagioneSociale(body.ragioneSociale());
         cliente.setPartitaIva(body.partitaIva());
         cliente.setFatturatoAnnuale(body.fatturatoAnnuale());
-        cliente.setDataInserimento(LocalDate.parse(body.dataInserimento()));
+        cliente.setDataInserimento(LocalDate.now());
+        cliente.setEmailContatto(body.emailContatto());
+        cliente.setNomeContatto(body.nomeContatto());
+        cliente.setCognomeContatto(body.cognomeContatto());
+        cliente.setTelefonoContatto(body.telefonoContatto());
+        cliente.setPec(body.pec());
+        cliente.setTelefono(body.telefono());
         return clienteRepository.save(cliente);
     }
 
@@ -90,7 +96,7 @@ public class ClienteService {
                     .filter(c -> c.getRagioneSociale().contains(ragioneSociale))
                     .collect(Collectors.toList());
         }
-        
+
         return new PageImpl<>(clienti, pageable, clienti.size());
 
     }
