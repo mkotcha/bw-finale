@@ -5,8 +5,8 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.emmek.bwfinale.entities.Comune;
 import org.emmek.bwfinale.entities.Provincia;
-import org.emmek.bwfinale.repositories.ProvinciaRepository;
 import org.emmek.bwfinale.repositories.ComuneRepository;
+import org.emmek.bwfinale.repositories.ProvinciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,8 +46,7 @@ public class ComuneService {
                         case "Sud Sardegna" -> provinciaStr = "Sud-Sardegna";
                         default -> {
                             String[] strPart = provinciaStr.split("[ ;/-]");
-                            if (strPart[0].length() > 3)
-                                provinciaStr = strPart[0];
+                            if (strPart[0].length() > 3) provinciaStr = strPart[0];
                             provinciaStr = Normalizer.normalize(provinciaStr, Normalizer.Form.NFD);
                             provinciaStr = provinciaStr.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
                             log.info("****************** " + provinciaStr);
@@ -75,8 +74,7 @@ public class ComuneService {
     }
 
     public Comune findByNomeAndProvinciaSigla(String nome, String provincia) {
-        return comuneRepository.findByNomeAndProvinciaSigla(nome, provincia).orElseThrow(
-                () -> new RuntimeException("Comune " + nome + " " + " provincia di  " + provincia + " non trovato"));
+        return comuneRepository.findByNomeAndProvinciaSigla(nome, provincia).orElseThrow(() -> new RuntimeException("Comune " + nome + " " + " provincia di  " + provincia + " non trovato"));
     }
 
 }

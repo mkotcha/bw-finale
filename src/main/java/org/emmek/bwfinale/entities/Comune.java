@@ -16,8 +16,8 @@ public class Comune {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "nome_comune")
-    private String nomeComune;
+    @Column(name = "nome")
+    private String nome;
 
     @ManyToOne
     @JoinColumn(name = "provincia_id")

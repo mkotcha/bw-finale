@@ -16,11 +16,11 @@ public class IndirizzoService {
     @Autowired
     IndirizzoRepository repository;
 
-    public Indirizzo save(Indirizzo indirizzo){
+    public Indirizzo save(Indirizzo indirizzo) {
         return repository.save(indirizzo);
     }
 
-    public Page<Indirizzo> getIndirizzi(int page, int size, String orderBy){
+    public Page<Indirizzo> getIndirizzi(int page, int size, String orderBy) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
 
         return repository.findAll(pageable);
@@ -30,7 +30,7 @@ public class IndirizzoService {
         return repository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
 
-    public void findAndDelete(long id) throws NotFoundException{
+    public void findAndDelete(long id) throws NotFoundException {
         Indirizzo found = this.findById(id);
 
         repository.delete(found);

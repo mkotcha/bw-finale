@@ -3,9 +3,12 @@ package org.emmek.bwfinale.services;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.emmek.bwfinale.entities.Cliente;
+import org.emmek.bwfinale.entities.Comune;
+import org.emmek.bwfinale.entities.Indirizzo;
 import org.emmek.bwfinale.exceptions.NotFoundException;
 import org.emmek.bwfinale.payload.entity.ClientePostDTO;
 import org.emmek.bwfinale.repositories.ClienteRepository;
+import org.emmek.bwfinale.repositories.IndirizzoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -21,7 +24,11 @@ public class ClienteService {
 
     @Autowired
     ClienteRepository clienteRepository;
+    @Autowired
+    IndirizzoRepository indirizzoRepository;
 
+    @Autowired
+    ComuneService comuneService;
     @Autowired
     private Cloudinary cloudinary;
 
@@ -37,6 +44,12 @@ public class ClienteService {
         cliente.setTelefonoContatto(body.telefonoContatto());
         cliente.setPec(body.pec());
         cliente.setTelefono(body.telefono());
+
+        Comune comune = comuneService.findByNomeAndProvinciaSigla(body.comune1(), body.provincia1());
+        Indirizzo indirizzo1 = new Indirizzo(body.via1(), body.civico1(), body.provincia1(), body.cap1(), comune);
+        indirizzoRepository.save(indirizzo1);
+        cliente.setIndirizzo1(indirizzo1);
+
         return clienteRepository.save(cliente);
     }
 
