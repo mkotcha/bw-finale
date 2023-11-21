@@ -1,10 +1,8 @@
 package org.emmek.bwfinale.services;
 
-import org.aspectj.weaver.ast.Not;
 import org.emmek.bwfinale.entities.Indirizzo;
 import org.emmek.bwfinale.exceptions.NotFoundException;
-import org.emmek.bwfinale.repository.ComuneRepository;
-import org.emmek.bwfinale.repository.IndirizzoRepository;
+import org.emmek.bwfinale.repositories.IndirizzoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

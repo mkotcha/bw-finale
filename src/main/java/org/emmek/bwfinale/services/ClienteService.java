@@ -4,7 +4,7 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.emmek.bwfinale.entities.Cliente;
 import org.emmek.bwfinale.exceptions.NotFoundException;
-import org.emmek.bwfinale.payloads.ClientePostDTO;
+import org.emmek.bwfinale.payload.entity.ClientePostDTO;
 import org.emmek.bwfinale.repositories.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;

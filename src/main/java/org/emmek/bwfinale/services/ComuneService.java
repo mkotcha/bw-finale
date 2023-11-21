@@ -6,7 +6,7 @@ import org.apache.commons.csv.CSVRecord;
 import org.emmek.bwfinale.entities.Comune;
 import org.emmek.bwfinale.entities.Provincia;
 import org.emmek.bwfinale.repositories.ProvinciaRepository;
-import org.emmek.bwfinale.repository.ComuneRepository;
+import org.emmek.bwfinale.repositories.ComuneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

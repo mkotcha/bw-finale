@@ -2,7 +2,7 @@ package org.emmek.bwfinale.controllers;
 
 import org.emmek.bwfinale.entities.Cliente;
 import org.emmek.bwfinale.exceptions.BadRequestException;
-import org.emmek.bwfinale.payloads.ClientePostDTO;
+import org.emmek.bwfinale.payload.entity.ClientePostDTO;
 import org.emmek.bwfinale.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

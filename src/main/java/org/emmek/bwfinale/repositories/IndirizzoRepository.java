@@ -1,4 +1,4 @@
-package org.emmek.bwfinale.repository;
+package org.emmek.bwfinale.repositories;
 
 import org.emmek.bwfinale.entities.Indirizzo;
 import org.springframework.data.jpa.repository.JpaRepository;

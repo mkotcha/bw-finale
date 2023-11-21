@@ -4,7 +4,7 @@ import org.emmek.bwfinale.Enum.StatoFattura;
 import org.emmek.bwfinale.entities.Cliente;
 import org.emmek.bwfinale.entities.Fattura;
 import org.emmek.bwfinale.exceptions.BadRequestException;
-import org.emmek.bwfinale.payloads.FatturaDTO;
+import org.emmek.bwfinale.payload.entity.FatturaDTO;
 import org.emmek.bwfinale.services.ClienteService;
 import org.emmek.bwfinale.services.FatturaService;
 import org.springframework.beans.factory.annotation.Autowired;
