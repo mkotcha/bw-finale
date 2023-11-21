@@ -13,12 +13,11 @@ import lombok.Setter;
 @Table(name = "comuni")
 @NoArgsConstructor
 public class Comune {
-    private int codiceProvincia;
-
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    private String nome_comune;
+    @Column(name = "nome_comune")
+    private String nomeComune;
 
     @ManyToOne
     @JoinColumn(name = "provincia_id")
