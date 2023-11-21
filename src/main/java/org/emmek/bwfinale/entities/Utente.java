@@ -32,7 +32,7 @@ public class Utente implements UserDetails {
     private String cognome;
     private String urlAvatar;
     private String password;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),

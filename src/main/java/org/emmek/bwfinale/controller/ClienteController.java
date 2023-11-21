@@ -17,8 +17,8 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @GetMapping("")
-    public Page<Cliente> getClienti(@RequestParam(defaultValue = "") double fatturatoGreater,
-                                    @RequestParam(defaultValue = "") double fatturatoLess,
+    public Page<Cliente> getClienti(@RequestParam(defaultValue = "0") double fatturatoGreater,
+                                    @RequestParam(defaultValue = "0") double fatturatoLess,
                                     @RequestParam(defaultValue = "") String dataInserimento,
                                     @RequestParam(defaultValue = "") String dataUltimoContatto,
                                     @RequestParam(defaultValue = "") String ragioneSociale,
