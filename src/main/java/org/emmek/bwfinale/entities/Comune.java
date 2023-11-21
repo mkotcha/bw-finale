@@ -1,22 +1,20 @@
 package org.emmek.bwfinale.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Setter
 @Entity
 @Table(name = "comuni")
-@NoArgsConstructor
-public class Comune {
+public class Comune { 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private int codiceProvincia;
 
-    @Id
-    private long id;
+private int codiceComune;
 
     private String nome_comune;
 
@@ -24,4 +22,6 @@ public class Comune {
     @JoinColumn(name = "provincia_id")
     private Provincia provincia;
 
+    public Comune(int i, long l, String denominazioneInItaliano, Provincia byName) {
+    }
 }
