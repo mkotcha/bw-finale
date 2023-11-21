@@ -50,12 +50,7 @@ public class FatturaService {
     }
 
 
-    public Page<Fattura> findByAnno(int anno, int page, int size, String sort) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
-        return fatturaRepository.findByAnno(anno, pageable);
-    }
-
-    public Page<Fattura> getFatture(double importoGreater, double importoLess, String data, StatoFattura statoFattura, int anno, int page, int size, String orderBy) {
+    public Page<Fattura> getFatture(double importoGreater, double importoLess, String data, StatoFattura statoFattura, int anno, long clientId, int page, int size, String orderBy) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
         List<Fattura> fatture = fatturaRepository.findAll();
         if (importoGreater != 0) {
@@ -85,6 +80,11 @@ public class FatturaService {
         if (anno != 0) {
             fatture = fatture.stream()
                     .filter(f -> f.getAnno() == anno)
+                    .collect(Collectors.toList());
+        }
+        if (clientId != 0) {
+            fatture = fatture.stream()
+                    .filter(f -> f.getCliente().getId() == clientId)
                     .collect(Collectors.toList());
         }
 

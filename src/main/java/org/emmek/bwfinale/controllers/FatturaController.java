@@ -41,12 +41,13 @@ public class FatturaController {
             @RequestParam(defaultValue = "") StatoFattura statoFattura,
             @RequestParam(defaultValue = "") String data,
             @RequestParam(defaultValue = "0") int anno,
+            @RequestParam(defaultValue = "0") long clientId,
             @RequestParam(defaultValue = "0") double importoMin,
             @RequestParam(defaultValue = "0") double importoMax,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "id") String orderBy) {
-        return fatturaService.getFatture(importoMax, importoMin, data, statoFattura, anno, page, size, orderBy);
+        return fatturaService.getFatture(importoMax, importoMin, data, statoFattura, anno, clientId, page, size, orderBy);
     }
 
     @GetMapping("/{idNumero}")
