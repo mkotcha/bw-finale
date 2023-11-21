@@ -17,7 +17,7 @@ public class RunRunRun implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        provinciaService.loadProvincieCsv("file/province-italiane.csv");
-        comuneService.loadComuniCsv("file/comuni-italiani.csv");
+//        provinciaService.loadProvincieCsv("file/province-italiane.csv");
+//        comuneService.loadComuniCsv("file/comuni-italiani.csv");
     }
 }
