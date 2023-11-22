@@ -43,6 +43,15 @@ public class Utente implements UserDetails {
     @CreationTimestamp
     private Date createdAt;
 
+    public Utente(String basicUser, String mail, String password) {
+        this.username = basicUser;
+        this.email= mail;
+        this.password = password;
+    }
+
+    public Utente() {
+
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

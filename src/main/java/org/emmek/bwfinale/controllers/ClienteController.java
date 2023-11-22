@@ -66,6 +66,10 @@ public class ClienteController {
     public String uploadExample(@PathVariable long id, @RequestParam("logo") MultipartFile body) throws IOException {
         return clienteService.uploadPicture(id, body);
     }
+    @GetMapping("/{id}")
+    public Cliente findById(@PathVariable long id){
+        return clienteService.findById(id);
+    }
 
     @GetMapping("/{clienteId}/fatture")
     public Page<Fattura> findFattureByClienteId (@PathVariable long clienteId,

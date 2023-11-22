@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/provinci")
-public class CSVProvinciaControllers {
+public class ProvinciaControllers {
     @Autowired
     ProvinciaService service;
 

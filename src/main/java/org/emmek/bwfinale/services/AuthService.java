@@ -47,7 +47,7 @@ public class AuthService {
         newUtente.setEmail(body.email());
         newUtente.setPassword(bcrypt.encode(body.password()));
         newUtente.setUsername(body.username());
-        Role userRole = roleRepository.findByRole("USER").orElse(null);
+        Role userRole = roleRepository.findByRole("ADMIN").orElse(null);
         newUtente.setRoles(new HashSet<>(Collections.singletonList(userRole)));
 
         return utenteRepository.save(newUtente);
