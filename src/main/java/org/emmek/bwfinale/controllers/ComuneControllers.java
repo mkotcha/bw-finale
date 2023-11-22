@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/comuni")
-public class CSVComuneControllers {
+public class ComuneControllers {
     @Autowired
     ComuneService service;
 
