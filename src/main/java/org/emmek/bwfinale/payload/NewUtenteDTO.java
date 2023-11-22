@@ -1,4 +1,4 @@
-package org.emmek.bwfinale.payload.entity;
+package org.emmek.bwfinale.payload;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;

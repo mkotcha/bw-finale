@@ -11,7 +11,6 @@ import lombok.*;
 @Table(name = "indirizzi")
 @NoArgsConstructor
 @AllArgsConstructor
-@Hidden
 public class Indirizzo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

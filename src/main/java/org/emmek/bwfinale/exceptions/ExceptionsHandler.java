@@ -1,8 +1,8 @@
 package org.emmek.bwfinale.exceptions;
 
 import lombok.extern.slf4j.Slf4j;
-import org.emmek.bwfinale.payload.entity.ErrorsResponseDTO;
-import org.emmek.bwfinale.payload.entity.ErrorsResponseWithListDTO;
+import org.emmek.bwfinale.payload.ErrorsResponseDTO;
+import org.emmek.bwfinale.payload.ErrorsResponseWithListDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
@@ -65,5 +65,5 @@ public class ExceptionsHandler {
         log.error("Server Error", e);
         return new ErrorPayload("Server Error", new Date());
     }
-    
+
 }
