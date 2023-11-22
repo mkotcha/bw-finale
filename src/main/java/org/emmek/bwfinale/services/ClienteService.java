@@ -4,10 +4,12 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.emmek.bwfinale.entities.Cliente;
 import org.emmek.bwfinale.entities.Comune;
+import org.emmek.bwfinale.entities.Fattura;
 import org.emmek.bwfinale.entities.Indirizzo;
 import org.emmek.bwfinale.exceptions.NotFoundException;
 import org.emmek.bwfinale.payload.entity.ClientePostDTO;
 import org.emmek.bwfinale.repositories.ClienteRepository;
+import org.emmek.bwfinale.repositories.FatturaRepository;
 import org.emmek.bwfinale.repositories.IndirizzoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -31,6 +33,9 @@ public class ClienteService {
     ComuneService comuneService;
     @Autowired
     private Cloudinary cloudinary;
+
+    @Autowired
+    FatturaRepository fatturaRepository;
 
     public Cliente save(ClientePostDTO body) {
         Cliente cliente = new Cliente();
@@ -149,4 +154,10 @@ public class ClienteService {
         clienteRepository.save(cliente);
         return url;
     }
+
+    public Page<Fattura> findFattureByClienteId(long clienteId, int page, int size, String sort) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
+        return fatturaRepository.findByClienteId(clienteId, pageable);
+    }
+
 }

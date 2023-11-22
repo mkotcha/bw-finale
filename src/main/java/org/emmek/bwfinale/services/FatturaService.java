@@ -5,6 +5,7 @@ import org.emmek.bwfinale.entities.Cliente;
 import org.emmek.bwfinale.entities.Fattura;
 import org.emmek.bwfinale.exceptions.NotFoundException;
 import org.emmek.bwfinale.payload.entity.FatturaDTO;
+import org.emmek.bwfinale.repositories.ClienteRepository;
 import org.emmek.bwfinale.repositories.FatturaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -18,16 +19,17 @@ import java.util.stream.Collectors;
 public class FatturaService {
     @Autowired
     FatturaRepository fatturaRepository;
+    @Autowired
+    ClienteRepository clienteRepository;
 
     public Fattura save(FatturaDTO body, Cliente cliente) {
         Fattura newFattura = new Fattura();
-
+        newFattura.setNumeroFattura(body.numeroFattura());
         newFattura.setImporto(body.importo());
         newFattura.setData(LocalDate.now().minusYears(1));
         newFattura.setCliente(cliente);
         newFattura.setAnno(LocalDate.now().getYear() - 1);
-        newFattura.setStato(StatoFattura.PAGATA);
-
+        newFattura.setStato(StatoFattura.DA_APPROVARE);
         return fatturaRepository.save(newFattura);
     }
 
@@ -38,10 +40,10 @@ public class FatturaService {
 
     }
 
-    public Fattura findAndUpdateByIdNumero(long idNumero, Fattura body) {
+    public Fattura findAndUpdateById(long idNumero, Fattura body) {
         Fattura foundF = this.findById(idNumero);
 
-        foundF.setId_numero(idNumero);
+        foundF.setId(idNumero);
         foundF.setImporto(body.getImporto());
         foundF.setData(body.getData());
 

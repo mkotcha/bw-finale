@@ -1,6 +1,7 @@
 package org.emmek.bwfinale.controllers;
 
 import org.emmek.bwfinale.entities.Cliente;
+import org.emmek.bwfinale.entities.Fattura;
 import org.emmek.bwfinale.exceptions.BadRequestException;
 import org.emmek.bwfinale.payload.entity.ClientePostDTO;
 import org.emmek.bwfinale.services.ClienteService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/clienti")
@@ -65,4 +67,12 @@ public class ClienteController {
         return clienteService.uploadPicture(id, body);
     }
 
+    @GetMapping("/{clienteId}/fatture")
+    public Page<Fattura> findFattureByClienteId (@PathVariable long clienteId,
+                                          @RequestParam(defaultValue = "0") int page,
+                                          @RequestParam(defaultValue = "10") int size,
+                                          @RequestParam(defaultValue = "id") String sort){
+    return clienteService.findFattureByClienteId(clienteId, page,size,sort);
+    }
 }
+

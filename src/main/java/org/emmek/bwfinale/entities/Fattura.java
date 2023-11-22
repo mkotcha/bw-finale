@@ -14,8 +14,9 @@ public class Fattura {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_numero;
-
+    private long id;
+    @Column(name = "numero_fattura")
+    private String numeroFattura;
     private double importo;
     private LocalDate data;
     @Enumerated(EnumType.STRING)

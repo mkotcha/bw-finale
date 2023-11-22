@@ -56,8 +56,8 @@ public class FatturaController {
     }
 
     @PutMapping("/{idNumero}")
-    public Fattura findAndUpdateByIdNumero(@PathVariable long idNumero, @RequestBody Fattura body) {
-        return fatturaService.findAndUpdateByIdNumero(idNumero, body);
+    public Fattura findAndUpdateById(@PathVariable long idNumero, @RequestBody Fattura body) {
+        return fatturaService.findAndUpdateById(idNumero, body);
     }
 
     @DeleteMapping("/{idNumero}")

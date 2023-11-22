@@ -1,9 +1,11 @@
 package org.emmek.bwfinale.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "clienti")
@@ -46,5 +48,9 @@ public class Cliente {
     @OneToOne
     @JoinColumn(name = "indirizzo_2_id")
     private Indirizzo indirizzo2;
+    @OneToMany (mappedBy = "cliente")
+    @JsonIgnore
+    List<Fattura> fatture;
+
 
 }
