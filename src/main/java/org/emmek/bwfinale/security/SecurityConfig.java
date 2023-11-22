@@ -42,7 +42,7 @@ public class SecurityConfig {
 
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(exceptionsHandlerFilter, JWTAuthFilter.class);
-        http.authorizeHttpRequests(request -> request.requestMatchers("/**").permitAll());
+        
         return http.build();
     }
 
@@ -61,5 +61,6 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
 
 }

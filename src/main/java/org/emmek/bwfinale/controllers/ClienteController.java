@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
 
 @RestController
 @RequestMapping("/clienti")
@@ -66,17 +65,18 @@ public class ClienteController {
     public String uploadExample(@PathVariable long id, @RequestParam("logo") MultipartFile body) throws IOException {
         return clienteService.uploadPicture(id, body);
     }
+
     @GetMapping("/{id}")
-    public Cliente findById(@PathVariable long id){
+    public Cliente findById(@PathVariable long id) {
         return clienteService.findById(id);
     }
 
     @GetMapping("/{clienteId}/fatture")
-    public Page<Fattura> findFattureByClienteId (@PathVariable long clienteId,
-                                          @RequestParam(defaultValue = "0") int page,
-                                          @RequestParam(defaultValue = "10") int size,
-                                          @RequestParam(defaultValue = "id") String sort){
-    return clienteService.findFattureByClienteId(clienteId, page,size,sort);
+    public Page<Fattura> findFattureByClienteId(@PathVariable long clienteId,
+                                                @RequestParam(defaultValue = "0") int page,
+                                                @RequestParam(defaultValue = "10") int size,
+                                                @RequestParam(defaultValue = "id") String sort) {
+        return clienteService.findFattureByClienteId(clienteId, page, size, sort);
     }
 }
 

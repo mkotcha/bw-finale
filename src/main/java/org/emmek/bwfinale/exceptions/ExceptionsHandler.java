@@ -39,7 +39,6 @@ public class ExceptionsHandler {
     }
 
 
-
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorsResponseDTO handleNotFound(NotFoundException e) {
@@ -52,6 +51,11 @@ public class ExceptionsHandler {
         return new ErrorsPayload("Errore nel formato json , assicurati che ci siano gli apici in ogni proprieta' e che le virgole siano presenti.", new Date());
     }
 
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorsPayload handleJsonError(RuntimeException e) {
+        return new ErrorsPayload(e.getMessage(), new Date());
+    }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
