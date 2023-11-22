@@ -1,5 +1,6 @@
 package org.emmek.bwfinale.exceptions;
 
+import lombok.extern.slf4j.Slf4j;
 import org.emmek.bwfinale.payload.entity.ErrorsResponseDTO;
 import org.emmek.bwfinale.payload.entity.ErrorsResponseWithListDTO;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestControllerAdvice
+@Slf4j
 public class ExceptionsHandler {
     @ExceptionHandler(BadRequestException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -59,10 +61,9 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorsResponseDTO handleGeneric(Exception e) {
-        e.printStackTrace();
-        return new ErrorsResponseDTO("Problema lato server", new Date());
+    public ErrorPayload handleGeneric(Exception e) {
+        log.error("Server Error", e);
+        return new ErrorPayload("Server Error", new Date());
     }
-
-
+    
 }
