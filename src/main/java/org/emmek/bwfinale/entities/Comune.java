@@ -1,5 +1,6 @@
 package org.emmek.bwfinale.entities;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "comuni")
 @NoArgsConstructor
+@Hidden
 public class Comune {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

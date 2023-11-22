@@ -1,10 +1,12 @@
 package org.emmek.bwfinale.payload.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+@Schema(description = "Data Transfer Object per la creazione/modifica di un cliente")
 public record ClientePostDTO(
 
         @NotNull(message = "Ragione sociale non puo essere null")

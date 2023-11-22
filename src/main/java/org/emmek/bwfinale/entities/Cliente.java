@@ -1,6 +1,8 @@
 package org.emmek.bwfinale.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +16,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Hidden
+@Schema(hidden = true)
 public class Cliente {
+    @OneToMany(mappedBy = "cliente")
+    @JsonIgnore
+    @ToString.Exclude
+    List<Fattura> fatture;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -48,9 +56,6 @@ public class Cliente {
     @OneToOne
     @JoinColumn(name = "indirizzo_2_id")
     private Indirizzo indirizzo2;
-    @OneToMany (mappedBy = "cliente")
-    @JsonIgnore
-    List<Fattura> fatture;
 
 
 }

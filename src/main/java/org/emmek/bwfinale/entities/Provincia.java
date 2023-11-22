@@ -1,5 +1,6 @@
 package org.emmek.bwfinale.entities;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,6 +11,7 @@ import lombok.*;
 @Table(name = "province")
 @AllArgsConstructor
 @NoArgsConstructor
+@Hidden
 public class Provincia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
