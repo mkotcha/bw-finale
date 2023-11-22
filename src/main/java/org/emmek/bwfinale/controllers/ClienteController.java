@@ -26,8 +26,9 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
-    @Operation(summary = "lista di tutti i clienti con vari filtri")
+    @Operation(summary = "lista di tutti i clienti con vari filtri", description = "combina più query per affinare la ricerca")
     @GetMapping("")
+//    @Tag(name = "find clienti", description = "query ricerca clienti")
     public Page<Cliente> getClienti(@RequestParam(defaultValue = "0")
                                     @Parameter(description = "ritorna i clienti con un fatturato maggiore del valore inserito, da usare con fatturatoLess per ottenere un valore compreso")
                                     double fatturatoGreater,

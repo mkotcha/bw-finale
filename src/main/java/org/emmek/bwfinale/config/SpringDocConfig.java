@@ -15,11 +15,9 @@ public class SpringDocConfig {
 
     @Bean
     public OpenAPI customOpenAPI() {
-
-
         return new OpenAPI()
                 .components(new Components()
-                        .addSecuritySchemes(token,
+                        .addSecuritySchemes("bearer token",
                                 new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")));
     }
 }

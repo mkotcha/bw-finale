@@ -2,8 +2,10 @@ package org.emmek.bwfinale.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,7 +22,9 @@ import java.util.stream.Collectors;
 @Setter
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
 @JsonIgnoreProperties({"password", "authorities", "enabled", "credentialsNonExpired", "accountNonExpired", "accountNonLocked"})
+@Hidden
 public class Utente implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,12 +49,8 @@ public class Utente implements UserDetails {
 
     public Utente(String basicUser, String mail, String password) {
         this.username = basicUser;
-        this.email= mail;
+        this.email = mail;
         this.password = password;
-    }
-
-    public Utente() {
-
     }
 
     @Override
