@@ -1,5 +1,6 @@
 package org.emmek.bwfinale.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.emmek.bwfinale.entities.Utente;
 import org.emmek.bwfinale.exceptions.BadRequestException;
 import org.emmek.bwfinale.services.UtenteService;
@@ -11,11 +12,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/users")
-public class UtenteController{
+@Tag(name = "Utenti", description = "API gestione utenti")
+public class UtenteController {
     @Autowired
     private UtenteService utenteService;
 
@@ -27,23 +27,25 @@ public class UtenteController{
     }
 
     @GetMapping(value = "/{id}")
-    public Utente findById(@PathVariable long id){return utenteService.findById(id);}
+    public Utente findById(@PathVariable long id) {
+        return utenteService.findById(id);
+    }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public Utente findByIdAndUpdate(@PathVariable long id, @RequestBody @Validated Utente body, BindingResult validation){
-        if (validation.hasErrors()){
+    public Utente findByIdAndUpdate(@PathVariable long id, @RequestBody @Validated Utente body, BindingResult validation) {
+        if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
-        }else{
+        } else {
             return utenteService.findByIdAndUpdate(id, body);
         }
-        }
+    }
 
-        @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void findByIdAndDelete(@PathVariable long id){
+    public void findByIdAndDelete(@PathVariable long id) {
         utenteService.findByIdAndDelete(id);
-        }
     }
+}
 

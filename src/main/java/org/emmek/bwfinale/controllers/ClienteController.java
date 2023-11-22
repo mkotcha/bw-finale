@@ -1,5 +1,8 @@
 package org.emmek.bwfinale.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.emmek.bwfinale.entities.Cliente;
 import org.emmek.bwfinale.entities.Fattura;
 import org.emmek.bwfinale.exceptions.BadRequestException;
@@ -17,23 +20,36 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/clienti")
+@Tag(name = "clienti", description = "API gestione clienti")
 public class ClienteController {
 
     @Autowired
     private ClienteService clienteService;
 
+    @Operation(summary = "lista di tutti i clienti con vari filtri")
     @GetMapping("")
-    public Page<Cliente> getClienti(@RequestParam(defaultValue = "0") double fatturatoGreater,
-                                    @RequestParam(defaultValue = "0") double fatturatoLess,
-                                    @RequestParam(defaultValue = "") String dataInserimento,
-                                    @RequestParam(defaultValue = "") String dataUltimoContatto,
-                                    @RequestParam(defaultValue = "") String ragioneSociale,
+    public Page<Cliente> getClienti(@RequestParam(defaultValue = "0")
+                                    @Parameter(description = "ritorna i clienti con un fatturato maggiore del valore inserito, da usare con fatturatoLess per ottenere un valore compreso")
+                                    double fatturatoGreater,
+                                    @RequestParam(defaultValue = "0")
+                                    @Parameter(description = "ritorna i clienti con un fatturato minore del valore inserito, da usare con fatturatoGreater per ottenere un valore compreso\"")
+                                    double fatturatoLess,
+                                    @RequestParam(defaultValue = "")
+                                    @Parameter(description = "ritorna tutte le fatture emesse nel giorno inserito nel formato yyyy-mm-gg")
+                                    String dataInserimento,
+                                    @RequestParam(defaultValue = "")
+                                    @Parameter(description = "ritorna tutte le fatture modificate/aggiornate nel giorno inserito nel formato yyyy-mm-gg")
+                                    String dataUltimoContatto,
+                                    @RequestParam(defaultValue = "")
+                                    @Parameter(description = "ritorna un elenco di clienti contenenti la stringa inserita nella ragione sociale")
+                                    String ragioneSociale,
                                     @RequestParam(defaultValue = "0") int page,
                                     @RequestParam(defaultValue = "10") int size,
                                     @RequestParam(defaultValue = "id") String sort) {
         return clienteService.getClienti(fatturatoGreater, fatturatoLess, dataInserimento, dataUltimoContatto, ragioneSociale, page, size, sort);
     }
 
+    @Operation(summary = "crea un nuovo cliente")
     @PostMapping("")
     @PreAuthorize("hasAuthority('ADMIN')")
     public Cliente postCliente(@RequestBody @Validated ClientePostDTO body, BindingResult validation) {
@@ -46,7 +62,7 @@ public class ClienteController {
 
     @PutMapping("{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public Cliente updateClienteById(@PathVariable long id, @RequestBody @Validated ClientePostDTO body, BindingResult validation) {
+    public Cliente updateClienteById(@PathVariable @Parameter(description = "id del cliente da modificare") long id, @RequestBody @Validated ClientePostDTO body, BindingResult validation) {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         } else {

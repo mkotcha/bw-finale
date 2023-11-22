@@ -1,5 +1,6 @@
 package org.emmek.bwfinale.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.emmek.bwfinale.entities.Provincia;
 import org.emmek.bwfinale.services.ProvinciaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/provinci")
+@RequestMapping("/province")
+@Tag(name = "Province", description = "API elenco province senza la i")
 public class ProvinciaControllers {
     @Autowired
     ProvinciaService service;

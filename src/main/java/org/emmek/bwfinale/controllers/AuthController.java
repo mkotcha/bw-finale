@@ -1,5 +1,7 @@
 package org.emmek.bwfinale.controllers;
 
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.emmek.bwfinale.entities.Utente;
 import org.emmek.bwfinale.exceptions.BadRequestException;
 import org.emmek.bwfinale.payload.entity.NewUtenteDTO;
@@ -16,6 +18,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "Auth", description = "API gestione utenti")
 public class AuthController {
     @Autowired
     private AuthService authService;
@@ -25,6 +28,7 @@ public class AuthController {
         return new UtenteLoginSuccessDTO(authService.autheticateUtente(body));
     }
 
+    @Hidden
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public Utente saveUser(@RequestBody @Validated NewUtenteDTO body, BindingResult validation) {

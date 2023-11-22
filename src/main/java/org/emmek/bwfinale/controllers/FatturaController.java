@@ -1,5 +1,6 @@
 package org.emmek.bwfinale.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.emmek.bwfinale.Enum.StatoFattura;
 import org.emmek.bwfinale.entities.Cliente;
 import org.emmek.bwfinale.entities.Fattura;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/fatture")
+@Tag(name = "Fatture", description = "API gestione fatture")
 public class FatturaController {
     @Autowired
     private FatturaService fatturaService;

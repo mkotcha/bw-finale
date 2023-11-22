@@ -1,5 +1,6 @@
 package org.emmek.bwfinale.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.emmek.bwfinale.entities.Comune;
 import org.emmek.bwfinale.services.ComuneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/comuni")
+@Tag(name = "Comuni", description = "API elenco comuni")
 public class ComuneControllers {
     @Autowired
     ComuneService service;
