@@ -7,7 +7,7 @@ import org.emmek.bwfinale.entities.Comune;
 import org.emmek.bwfinale.entities.Fattura;
 import org.emmek.bwfinale.entities.Indirizzo;
 import org.emmek.bwfinale.exceptions.NotFoundException;
-import org.emmek.bwfinale.payload.entity.ClientePostDTO;
+import org.emmek.bwfinale.payload.ClientePostDTO;
 import org.emmek.bwfinale.repositories.ClienteRepository;
 import org.emmek.bwfinale.repositories.FatturaRepository;
 import org.emmek.bwfinale.repositories.IndirizzoRepository;
@@ -32,10 +32,9 @@ public class ClienteService {
     @Autowired
     ComuneService comuneService;
     @Autowired
-    private Cloudinary cloudinary;
-
-    @Autowired
     FatturaRepository fatturaRepository;
+    @Autowired
+    private Cloudinary cloudinary;
 
     public Cliente save(ClientePostDTO body) {
         Cliente cliente = new Cliente();

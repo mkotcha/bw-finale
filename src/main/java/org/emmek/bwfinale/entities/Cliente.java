@@ -16,8 +16,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Hidden
-@Schema(hidden = true)
 public class Cliente {
     @OneToMany(mappedBy = "cliente")
     @JsonIgnore

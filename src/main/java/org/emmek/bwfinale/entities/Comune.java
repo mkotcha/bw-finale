@@ -13,7 +13,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "comuni")
 @NoArgsConstructor
-@Hidden
 public class Comune {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

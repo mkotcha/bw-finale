@@ -4,8 +4,8 @@ import org.emmek.bwfinale.entities.Role;
 import org.emmek.bwfinale.entities.Utente;
 import org.emmek.bwfinale.exceptions.BadRequestException;
 import org.emmek.bwfinale.exceptions.UnauthorizedException;
-import org.emmek.bwfinale.payload.entity.NewUtenteDTO;
-import org.emmek.bwfinale.payload.entity.UtenteLoginDTO;
+import org.emmek.bwfinale.payload.NewUtenteDTO;
+import org.emmek.bwfinale.payload.UtenteLoginDTO;
 import org.emmek.bwfinale.repositories.RoleRepository;
 import org.emmek.bwfinale.repositories.UtenteRepository;
 import org.emmek.bwfinale.security.JWTTools;
@@ -29,17 +29,18 @@ public class AuthService {
     @Autowired
     private RoleRepository roleRepository;
 
-    public String autheticateUtente(UtenteLoginDTO body){
-        Utente utente= utenteService.findByEmail(body.email());
-        if (bcrypt.matches(body.password(), utente.getPassword())){
+    public String autheticateUtente(UtenteLoginDTO body) {
+        Utente utente = utenteService.findByEmail(body.email());
+        if (bcrypt.matches(body.password(), utente.getPassword())) {
             return jwtTools.createToken(utente);
-        }else {
+        } else {
             throw new UnauthorizedException("credenziali non valide");
         }
     }
-    public Utente save(NewUtenteDTO body)throws IOException{
+
+    public Utente save(NewUtenteDTO body) throws IOException {
         utenteRepository.findByEmail(body.email()).ifPresent(utente -> {
-            throw new BadRequestException("L'email "+ utente.getEmail()+"è già utilizzata!");
+            throw new BadRequestException("L'email " + utente.getEmail() + "è già utilizzata!");
         });
         Utente newUtente = new Utente();
         newUtente.setNome(body.nome());
@@ -52,5 +53,5 @@ public class AuthService {
 
         return utenteRepository.save(newUtente);
     }
-    }
+}
 

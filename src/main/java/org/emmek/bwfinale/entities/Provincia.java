@@ -11,7 +11,6 @@ import lombok.*;
 @Table(name = "province")
 @AllArgsConstructor
 @NoArgsConstructor
-@Hidden
 public class Provincia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
