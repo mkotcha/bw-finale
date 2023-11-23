@@ -6,7 +6,8 @@ import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
-import org.emmek.bwfinale.entities.Utente;
+import org.emmek.bwfinale.entities.Cliente;
+import org.emmek.bwfinale.payload.EmailDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -23,12 +24,11 @@ public class EmailSender {
         this.sender = sender;
     }
 
-    public void sendRegistrationEmail(Utente user) throws IOException {
+    public void sendRegistrationEmail(Cliente cliente, EmailDTO body) throws IOException {
         Email from = new Email(sender);
-        String subject = "\n" + "Registration successful!";
-        Email to = new Email(user.getEmail());
-        Content content = new Content("text/plain",
-                "Welcome " + user.getUsername() + " registration confirmed!");
+        String subject = "\n" + body.oggetto();
+        Email to = new Email(cliente.getEmailContatto(), cliente.getRagioneSociale());
+        Content content = new Content("text/plain", body.messaggio());
         Mail mail = new Mail(from, subject, to, content);
         SendGrid sg = new SendGrid(apikey);
         Request request = new Request();

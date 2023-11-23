@@ -3,10 +3,12 @@ package org.emmek.bwfinale.controllers;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.emmek.bwfinale.config.EmailSender;
 import org.emmek.bwfinale.entities.Cliente;
 import org.emmek.bwfinale.entities.Fattura;
 import org.emmek.bwfinale.exceptions.BadRequestException;
 import org.emmek.bwfinale.payload.ClientePostDTO;
+import org.emmek.bwfinale.payload.EmailDTO;
 import org.emmek.bwfinale.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,6 +27,9 @@ public class ClienteController {
 
     @Autowired
     private ClienteService clienteService;
+
+    @Autowired
+    private EmailSender emailSender;
 
     @Operation(summary = "lista di tutti i clienti con vari filtri", description = "combina più query per affinare la ricerca")
     @GetMapping("")
@@ -94,6 +99,13 @@ public class ClienteController {
                                                 @RequestParam(defaultValue = "10") int size,
                                                 @RequestParam(defaultValue = "id") String sort) {
         return clienteService.findFattureByClienteId(clienteId, page, size, sort);
+    }
+
+    @GetMapping("/{id}/sendmail")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public void sendMail(@PathVariable long id, @RequestBody EmailDTO body) throws IOException {
+        Cliente cliente = clienteService.findById(id);
+        emailSender.sendRegistrationEmail(cliente, body);
     }
 }
 
