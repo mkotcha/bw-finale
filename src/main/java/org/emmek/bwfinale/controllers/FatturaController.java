@@ -2,7 +2,6 @@ package org.emmek.bwfinale.controllers;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.emmek.bwfinale.Enum.StatoFattura;
-import org.emmek.bwfinale.entities.Cliente;
 import org.emmek.bwfinale.entities.Fattura;
 import org.emmek.bwfinale.exceptions.BadRequestException;
 import org.emmek.bwfinale.payload.FatturaDTO;
@@ -32,8 +31,7 @@ public class FatturaController {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         } else {
-            Cliente cliente = clienteService.findById(body.clienteId());
-            return fatturaService.save(body, cliente);
+            return fatturaService.save(body);
         }
     }
 

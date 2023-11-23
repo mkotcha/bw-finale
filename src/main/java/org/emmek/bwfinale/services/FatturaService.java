@@ -22,7 +22,11 @@ public class FatturaService {
     @Autowired
     ClienteRepository clienteRepository;
 
-    public Fattura save(FatturaDTO body, Cliente cliente) {
+    @Autowired
+    ClienteService clienteService;
+
+    public Fattura save(FatturaDTO body) {
+        Cliente cliente = clienteService.findById(body.clienteId());
         Fattura newFattura = new Fattura();
         newFattura.setNumeroFattura(body.numeroFattura());
         newFattura.setImporto(body.importo());

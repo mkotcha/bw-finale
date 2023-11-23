@@ -1,20 +1,18 @@
-package org.emmek.bwfinale.tester;
+package org.emmek.bwfinale;
 
-import org.emmek.bwfinale.entities.Utente;
-import org.emmek.bwfinale.security.JWTTools;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.security.authentication.UserDetailsRepositoryReactiveAuthenticationManager;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
+@SpringBootTest
 @AutoConfigureMockMvc
-public class AuthTester extends Tester{
+public class AuthTest extends ProjectApplicationTests {
     @Autowired
     private MockMvc mvc;
 
