@@ -4,7 +4,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.emmek.bwfinale.Enum.StatoFattura;
 import org.emmek.bwfinale.entities.Fattura;
 import org.emmek.bwfinale.exceptions.BadRequestException;
-import org.emmek.bwfinale.payload.FatturaDTO;
+import org.emmek.bwfinale.payload.FatturaPostDTO;
+import org.emmek.bwfinale.payload.FatturaPutDTO;
 import org.emmek.bwfinale.services.ClienteService;
 import org.emmek.bwfinale.services.FatturaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class FatturaController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public Fattura saveFattura(@RequestBody @Validated FatturaDTO body, BindingResult validation) {
+    public Fattura saveFattura(@RequestBody @Validated FatturaPostDTO body, BindingResult validation) {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         } else {
@@ -56,7 +57,7 @@ public class FatturaController {
     }
 
     @PutMapping("/{idNumero}")
-    public Fattura findAndUpdateById(@PathVariable long idNumero, @RequestBody Fattura body) {
+    public Fattura findAndUpdateById(@PathVariable long idNumero, @RequestBody FatturaPutDTO body) {
         return fatturaService.findAndUpdateById(idNumero, body);
     }
 
