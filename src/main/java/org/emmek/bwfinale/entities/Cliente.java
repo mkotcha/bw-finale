@@ -1,10 +1,9 @@
 package org.emmek.bwfinale.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.v3.oas.annotations.Hidden;
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
+import org.emmek.bwfinale.Enum.TipoCliente;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -48,6 +47,9 @@ public class Cliente {
     private String telefonoContatto;
     @Column(name = "logo_aziendale")
     private String logoAziendale;
+    @Column(name = "tipo_cliente")
+    @Enumerated(EnumType.STRING)
+    private TipoCliente tipoCliente;
     @OneToOne
     @JoinColumn(name = "indirizzo_1_id")
     private Indirizzo indirizzo1;

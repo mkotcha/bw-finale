@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import org.emmek.bwfinale.Enum.TipoCliente;
+import org.emmek.bwfinale.Enum.ValueOfEnum;
 
 @Schema(description = "Data Transfer Object per la creazione/modifica di un cliente")
 public record ClientePostDTO(
@@ -44,10 +46,13 @@ public record ClientePostDTO(
 
         @NotEmpty(message = "telefono contatto non puo essere vuoto")
         String telefonoContatto,
+        @NotNull(message = "Il tipo Cliente non puo essere null")
+        @ValueOfEnum(enumClass = TipoCliente.class, message = "tipo cliente deve essere PA, SAS, SPA o SRL")
+        String tipoCliente,
 
-        @NotNull(message = "La via pricipale non puo essere nnull")
+        @NotNull(message = "La via principale non puo essere null")
         String via1,
-        @NotNull(message = "il civico pricipale non puo essere null")
+        @NotNull(message = "il civico principale non puo essere null")
         String civico1,
 
         @NotNull(message = "la provincia principale non puo essere null")
