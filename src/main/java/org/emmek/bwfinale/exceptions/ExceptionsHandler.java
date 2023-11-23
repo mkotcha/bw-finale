@@ -65,5 +65,4 @@ public class ExceptionsHandler {
         log.error("Server Error", e);
         return new ErrorsResponseDTO("Server Error", new Date());
     }
-
 }

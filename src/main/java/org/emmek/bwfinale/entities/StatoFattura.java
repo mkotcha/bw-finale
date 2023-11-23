@@ -14,6 +14,7 @@ import lombok.Setter;
 @Setter
 public class StatoFattura {
 
+    @Column(unique = true)
     String stato;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

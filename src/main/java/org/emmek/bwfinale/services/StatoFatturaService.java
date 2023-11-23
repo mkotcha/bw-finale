@@ -17,7 +17,12 @@ public class StatoFatturaService {
     public StatoFattura save(StatoFatturaDTO body) {
         StatoFattura statoFattura = new StatoFattura();
         statoFattura.setStato(body.stato());
-        return statoFatturaRepository.save(statoFattura);
+        try {
+            return statoFatturaRepository.save(statoFattura);
+        } catch (Exception e) {
+            throw new RuntimeException("valore dello stato " + body.stato() + " già presente nel database");
+        }
+
     }
 
     public List<StatoFattura> findAll() {
@@ -25,6 +30,6 @@ public class StatoFatturaService {
     }
 
     public StatoFattura findByStato(String stato) {
-        return statoFatturaRepository.findByStato(stato);
+        return statoFatturaRepository.findByStato(stato).orElseThrow(() -> new RuntimeException("Stato " + stato + " non trovato"));
     }
 }

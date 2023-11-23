@@ -56,8 +56,12 @@ public class FatturaController {
     }
 
     @PutMapping("/{idNumero}")
-    public Fattura findAndUpdateById(@PathVariable long idNumero, @RequestBody FatturaPutDTO body) {
-        return fatturaService.findAndUpdateById(idNumero, body);
+    public Fattura findAndUpdateById(@PathVariable long idNumero, @RequestBody @Validated FatturaPutDTO body, BindingResult validation) {
+        if (validation.hasErrors()) {
+            throw new BadRequestException(validation.getAllErrors());
+        } else {
+            return fatturaService.findAndUpdateById(idNumero, body);
+        }
     }
 
     @DeleteMapping("/{idNumero}")
