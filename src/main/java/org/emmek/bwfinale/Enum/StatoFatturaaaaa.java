@@ -1,6 +1,6 @@
 package org.emmek.bwfinale.Enum;
 
-public enum StatoFattura {
+public enum StatoFatturaaaaa {
     BOZZA,
     DA_APPROVARE,
     PAGATA,

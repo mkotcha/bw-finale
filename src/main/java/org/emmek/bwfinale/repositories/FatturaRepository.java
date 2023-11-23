@@ -1,6 +1,5 @@
 package org.emmek.bwfinale.repositories;
 
-import org.emmek.bwfinale.Enum.StatoFattura;
 import org.emmek.bwfinale.entities.Fattura;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +19,5 @@ public interface FatturaRepository extends JpaRepository<Fattura, Long> {
     Page<Fattura> findByAnno(int anno, Pageable pageable);
 
     Page<Fattura> findByClienteId(long clienteId, Pageable pageable);
-
-    Page<Fattura> findByStato(StatoFattura stato, Pageable pageable);
+    
 }

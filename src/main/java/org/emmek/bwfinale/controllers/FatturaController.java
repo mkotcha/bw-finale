@@ -1,7 +1,6 @@
 package org.emmek.bwfinale.controllers;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.emmek.bwfinale.Enum.StatoFattura;
 import org.emmek.bwfinale.entities.Fattura;
 import org.emmek.bwfinale.exceptions.BadRequestException;
 import org.emmek.bwfinale.payload.FatturaPostDTO;
@@ -39,7 +38,7 @@ public class FatturaController {
     @GetMapping("")
     public Page<Fattura> getFatturaByFiltro(
 
-            @RequestParam(defaultValue = "") StatoFattura statoFattura,
+            @RequestParam(defaultValue = "") String statoFattura,
             @RequestParam(defaultValue = "") String data,
             @RequestParam(defaultValue = "0") int anno,
             @RequestParam(defaultValue = "0") long clientId,

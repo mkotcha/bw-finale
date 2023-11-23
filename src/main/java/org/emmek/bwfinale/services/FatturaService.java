@@ -1,8 +1,8 @@
 package org.emmek.bwfinale.services;
 
-import org.emmek.bwfinale.Enum.StatoFattura;
 import org.emmek.bwfinale.entities.Cliente;
 import org.emmek.bwfinale.entities.Fattura;
+import org.emmek.bwfinale.entities.StatoFattura;
 import org.emmek.bwfinale.exceptions.NotFoundException;
 import org.emmek.bwfinale.payload.FatturaPostDTO;
 import org.emmek.bwfinale.payload.FatturaPutDTO;
@@ -26,15 +26,19 @@ public class FatturaService {
     @Autowired
     ClienteService clienteService;
 
+    @Autowired
+    StatoFatturaService statoFatturaService;
+
     public Fattura save(FatturaPostDTO body) {
         Cliente cliente = clienteService.findById(body.clienteId());
         Fattura newFattura = new Fattura();
+        StatoFattura statoFattura = statoFatturaService.findByStato("BOZZA");
         newFattura.setNumeroFattura(body.numeroFattura());
         newFattura.setImporto(body.importo());
         newFattura.setData(LocalDate.now().minusYears(1));
         newFattura.setCliente(cliente);
         newFattura.setAnno(LocalDate.now().getYear() - 1);
-        newFattura.setStato(StatoFattura.DA_APPROVARE);
+        newFattura.setStatoFattura(statoFattura);
         return fatturaRepository.save(newFattura);
     }
 
@@ -47,18 +51,18 @@ public class FatturaService {
 
     public Fattura findAndUpdateById(long idNumero, FatturaPutDTO body) {
         Fattura fattura = this.findById(idNumero);
-
-        fattura.setId(idNumero);
+        StatoFattura statoFattura = statoFatturaService.findByStato(body.statoFattura());
+        Cliente cliente = clienteService.findById(body.clienteId());
         fattura.setImporto(body.importo());
         fattura.setNumeroFattura(body.numeroFattura());
-        fattura.setStato(StatoFattura.valueOf(body.stato()));
-
+        fattura.setStatoFattura(statoFattura);
+        fattura.setCliente(cliente);
+        fatturaRepository.save(fattura);
         return fattura;
-
     }
 
 
-    public Page<Fattura> getFatture(double importoGreater, double importoLess, String data, StatoFattura statoFattura, int anno, long clientId, int page, int size, String orderBy) {
+    public Page<Fattura> getFatture(double importoGreater, double importoLess, String data, String statoFattura, int anno, long clientId, int page, int size, String orderBy) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
         List<Fattura> fatture = fatturaRepository.findAll();
         if (importoGreater != 0) {
@@ -80,9 +84,9 @@ public class FatturaService {
         }
 
 
-        if (statoFattura != null) {
+        if (!statoFattura.isEmpty()) {
             fatture = fatture.stream()
-                    .filter(f -> f.getStato().equals(statoFattura))
+                    .filter(f -> f.getStatoFattura().getStato().equals(statoFattura))
                     .collect(Collectors.toList());
         }
         if (anno != 0) {
