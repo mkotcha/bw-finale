@@ -1,6 +1,9 @@
 package org.emmek.bwfinale.exceptions;
 
-public class NotFoundException extends RuntimeException{
+import lombok.Getter;
+
+@Getter
+public class NotFoundException extends RuntimeException {
     public NotFoundException(long id) {
         super("Elemento cod id " + id + " non trovato!");
     }

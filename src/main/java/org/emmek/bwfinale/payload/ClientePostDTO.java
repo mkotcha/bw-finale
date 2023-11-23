@@ -56,19 +56,19 @@ public record ClientePostDTO(
         String civico1,
 
         @NotNull(message = "la provincia principale non puo essere null")
-        @Size(min = 2, max = 3, message = "Provincia deve essere tra 2 e 3 caratteri")
+        @Size(min = 2, max = 4, message = "Provincia deve essere tra 2 e 4 caratteri")
         String provincia1,
 
         @NotNull()
         String comune1,
-
+        @NotNull()
         int cap1,
 
         String via2,
 
         String civico2,
 
-        @Size(min = 2, max = 3, message = "Provincia deve essere tra 2 e 3 caratteri")
+        @Size(min = 2, max = 4, message = "Provincia deve essere tra 2 e 4 caratteri")
         String provincia2,
 
         String comune2,

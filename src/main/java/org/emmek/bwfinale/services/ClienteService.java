@@ -6,6 +6,7 @@ import org.emmek.bwfinale.entities.Cliente;
 import org.emmek.bwfinale.entities.Comune;
 import org.emmek.bwfinale.entities.Fattura;
 import org.emmek.bwfinale.entities.Indirizzo;
+import org.emmek.bwfinale.exceptions.IncompleteAddressException;
 import org.emmek.bwfinale.exceptions.NotFoundException;
 import org.emmek.bwfinale.payload.ClientePostDTO;
 import org.emmek.bwfinale.repositories.ClienteRepository;
@@ -49,10 +50,25 @@ public class ClienteService {
         cliente.setPec(body.pec());
         cliente.setTelefono(body.telefono());
 
-        Comune comune = comuneService.findByNomeAndProvinciaSigla(body.comune1(), body.provincia1());
-        Indirizzo indirizzo1 = new Indirizzo(body.via1(), body.civico1(), body.provincia1(), body.cap1(), comune);
+        Comune comune1 = comuneService.findByNomeAndProvinciaSigla(body.comune1(), body.provincia1());
+        Indirizzo indirizzo1 = new Indirizzo(body.via1(), body.civico1(), body.provincia1(), body.cap1(), comune1);
         indirizzoRepository.save(indirizzo1);
         cliente.setIndirizzo1(indirizzo1);
+
+        if (body.provincia2() != null ||
+                body.via2() != null ||
+                body.comune2() != null ||
+                body.civico2() != null
+        ) {
+            try {
+                Comune comune2 = comuneService.findByNomeAndProvinciaSigla(body.comune2(), body.provincia2());
+                Indirizzo indirizzo2 = new Indirizzo(body.via2(), body.civico2(), body.provincia2(), body.cap2(), comune2);
+                indirizzoRepository.save(indirizzo2);
+                cliente.setIndirizzo2(indirizzo2);
+            } catch (Exception e) {
+                throw new IncompleteAddressException("inserisci tutti i campi dell'indirizzo secondario");
+            }
+        }
 
         return clienteRepository.save(cliente);
     }
@@ -60,8 +76,7 @@ public class ClienteService {
     public Cliente findById(long id) {
         return clienteRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente non trovato"));
     }
-
-
+    
     public Page<Cliente> findByFatturatoAnnualeGreaterThan(double fatturatoAnnuale, int page, int size, String sort) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
         return clienteRepository.findByFatturatoAnnualeGreaterThan(fatturatoAnnuale, pageable);

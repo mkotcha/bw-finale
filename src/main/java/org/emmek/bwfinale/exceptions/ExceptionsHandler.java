@@ -49,21 +49,21 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorsPayload handleJsonError() {
-        return new ErrorsPayload("Errore nel formato json , assicurati che ci siano gli apici in ogni proprieta' e che le virgole siano presenti.", new Date());
+    public ErrorsResponseDTO handleJsonError() {
+        return new ErrorsResponseDTO("Errore nel formato json , assicurati che ci siano gli apici in ogni proprietà e che le virgole siano presenti.", new Date());
     }
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorsPayload handleJsonError(RuntimeException e) {
-        return new ErrorsPayload(e.getMessage(), new Date());
+    public ErrorsResponseDTO handleJsonError(RuntimeException e) {
+        return new ErrorsResponseDTO(e.getMessage(), new Date());
     }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorPayload handleGeneric(Exception e) {
+    public ErrorsResponseDTO handleGeneric(Exception e) {
         log.error("Server Error", e);
-        return new ErrorPayload("Server Error", new Date());
+        return new ErrorsResponseDTO("Server Error", new Date());
     }
 
 }
