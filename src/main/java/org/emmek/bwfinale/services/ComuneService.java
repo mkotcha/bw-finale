@@ -5,8 +5,8 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.emmek.bwfinale.entities.Comune;
 import org.emmek.bwfinale.entities.Provincia;
-import org.emmek.bwfinale.repositories.ProvinciaRepository;
 import org.emmek.bwfinale.repositories.ComuneRepository;
+import org.emmek.bwfinale.repositories.ProvinciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,13 +31,15 @@ public class ComuneService {
     public void loadComuniCsv(String filePath) {
         try {
             Reader reader = Files.newBufferedReader(Paths.get(filePath));
-            Iterable<CSVRecord> records = CSVFormat.DEFAULT.withDelimiter(';').parse(reader);
+            Iterable<CSVRecord> records = CSVFormat.DEFAULT.builder()
+                    .setDelimiter(';')
+                    .build()
+                    .parse(reader);
+
             boolean flag = false;
             for (CSVRecord record : records) {
                 if (flag) {
-
                     String provinciaStr = record.get(3);
-
                     switch (provinciaStr) {
                         case "Valle d'Aosta/Vallée d'Aoste" -> provinciaStr = "Aosta";
                         case "La Spezia" -> provinciaStr = "La-Spezia";
@@ -50,7 +52,7 @@ public class ComuneService {
                                 provinciaStr = strPart[0];
                             provinciaStr = Normalizer.normalize(provinciaStr, Normalizer.Form.NFD);
                             provinciaStr = provinciaStr.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
-                            log.info("****************** " + provinciaStr);
+                            log.info("****** ******* " + provinciaStr);
                         }
                     }
 

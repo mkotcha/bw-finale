@@ -20,28 +20,37 @@ public class ProvinciaService {
     @Autowired
     ProvinciaRepository provinciaRepository;
 
+    private static Provincia getProvincia(CSVRecord record) {
+        Provincia provincia = new Provincia();
+        if (record.get(1).equals("Verbania")) {
+            provincia.setSigla(record.get(0));
+            provincia.setProvincia("Verbano-Cusio-Ossola");
+        } else if (record.get(1).equals("Carbonia Iglesias")) {
+            provincia.setSigla("SU");
+            provincia.setProvincia("Sud-Sardegna");
+        } else {
+            provincia.setSigla(record.get(0));
+            provincia.setProvincia(record.get(1));
+        }
+        provincia.setRegione(record.get(2));
+        return provincia;
+    }
+
     public void loadProvincieCsv(String filePath) {
-        log.info("pronto");
         try {
             Reader reader = Files.newBufferedReader(Paths.get(filePath));
-            log.info("letto file");
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.withDelimiter(';').parse(reader);
             boolean flag = false;
             for (CSVRecord record : records) {
                 if (flag) {
-                    Provincia provincia = new Provincia();
-                    provincia.setSigla(record.get(0));
-                    provincia.setProvincia(record.get(1));
-                    provincia.setRegione(record.get(2));
-                    provinciaRepository.save(provincia);
+                    if (!(record.get(2).equals("Medio Campidano") || record.get(2).equals("Ogliastra") || record.get(2).equals("Olbia-Tempio"))) {
+                        Provincia provincia = getProvincia(record);
+                        provinciaRepository.save(provincia);
+                    }
                 } else {
                     flag = true;
                 }
             }
-            Provincia newProvincia = new Provincia("VCS", "Verbano-Cusio-Ossola", "Piemonte");
-            provinciaRepository.save(newProvincia);
-            newProvincia = new Provincia("SU", "Sud-Sardegna", "Sardegna");
-            provinciaRepository.save(newProvincia);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -50,7 +59,6 @@ public class ProvinciaService {
     public List<Provincia> findAll() {
         return provinciaRepository.findAll();
     }
-
 
     public Provincia findByProvinciaContaining(String s) {
         return provinciaRepository.findByProvinciaContaining(s).orElseThrow(() -> new RuntimeException("Provincia " + s + " non trovata"));
