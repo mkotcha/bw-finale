@@ -19,12 +19,12 @@ public class EmailSender {
     private final String sender;
 
     public EmailSender(@Value("${sendgrid.apikey}") String apikey,
-                       @Value("${sengrid.sender}") String sender) {
+                       @Value("${sendgrid.sender}") String sender) {
         this.apikey = apikey;
         this.sender = sender;
     }
 
-    public void sendRegistrationEmail(Cliente cliente, EmailDTO body) throws IOException {
+    public void sendEmail(Cliente cliente, EmailDTO body) throws IOException {
         Email from = new Email(sender);
         String subject = "\n" + body.oggetto();
         Email to = new Email(cliente.getEmailContatto(), cliente.getRagioneSociale());
