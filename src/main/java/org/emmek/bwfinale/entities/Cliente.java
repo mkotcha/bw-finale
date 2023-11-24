@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 public class Cliente {
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.REMOVE)
     @JsonIgnore
     @ToString.Exclude
     List<Fattura> fatture;

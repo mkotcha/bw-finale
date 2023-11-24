@@ -32,12 +32,12 @@ public class FatturaService {
     public Fattura save(FatturaPostDTO body) {
         Cliente cliente = clienteService.findById(body.clienteId());
         Fattura newFattura = new Fattura();
-        StatoFattura statoFattura = statoFatturaService.findByStato("BOZZA");
+        StatoFattura statoFattura = statoFatturaService.findByStato("DA_APPROVARE");
         newFattura.setNumeroFattura(body.numeroFattura());
         newFattura.setImporto(body.importo());
-        newFattura.setData(LocalDate.now().minusYears(1));
+        newFattura.setData(LocalDate.now());
         newFattura.setCliente(cliente);
-        newFattura.setAnno(LocalDate.now().getYear() - 1);
+        newFattura.setAnno(LocalDate.now().getYear());
         newFattura.setStatoFattura(statoFattura);
         return fatturaRepository.save(newFattura);
     }

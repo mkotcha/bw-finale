@@ -21,7 +21,7 @@ public class Fattura {
     private LocalDate data;
     private int anno;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
