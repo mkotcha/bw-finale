@@ -101,11 +101,15 @@ public class ClienteController {
         return clienteService.findFattureByClienteId(clienteId, page, size, sort);
     }
 
-    @GetMapping("/{id}/sendmail")
+    @PostMapping("/{id}/sendmail")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public void sendMail(@PathVariable long id, @RequestBody EmailDTO body) throws IOException {
-        Cliente cliente = clienteService.findById(id);
-        emailSender.sendRegistrationEmail(cliente, body);
+    public void sendMail(@PathVariable long id, @RequestBody @Validated EmailDTO body, BindingResult validation) throws IOException {
+        if (validation.hasErrors()) {
+            throw new BadRequestException(validation.getAllErrors());
+        } else {
+            Cliente cliente = clienteService.findById(id);
+            emailSender.sendEmail(cliente, body);
+        }
     }
 }
 
